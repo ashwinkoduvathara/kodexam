@@ -1,0 +1,200 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+/*
+ * Base tokens are copied 1:1 from the Kodeversity LMS (kodeversity/src/styles.css)
+ * so both products resolve to the same typography, radius and neutral palette.
+ */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-teal: var(--teal);
+  --color-teal-dark: var(--teal-dark);
+  --color-teal-soft: var(--teal-soft);
+
+  /* KProctor-scoped design tokens (active only inside .kp wrapper) */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-muted: var(--brand-muted);
+  --color-navy: var(--navy);
+  --color-surface: var(--surface);
+
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2 0.02 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 240);
+  --primary: oklch(0.5 0.09 190);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0.01 190);
+  --secondary-foreground: oklch(0.2 0.02 240);
+  --muted: oklch(0.97 0.005 240);
+  --muted-foreground: oklch(0.5 0.02 240);
+  --accent: oklch(0.96 0.02 190);
+  --accent-foreground: oklch(0.2 0.02 240);
+  --destructive: oklch(0.577 0.215 27.3);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0.008 240);
+  --input: oklch(0.92 0.008 240);
+  --ring: oklch(0.5 0.09 190);
+
+  --teal: oklch(0.5 0.09 190);
+  --teal-dark: oklch(0.38 0.07 190);
+  --teal-soft: oklch(0.95 0.03 190);
+
+  /* KProctor tokens default to safe fallbacks so they never leak outside .kp */
+  --brand: oklch(0.5 0.09 190);
+  --brand-foreground: oklch(1 0 0);
+  --brand-strong: oklch(0.38 0.07 190);
+  --brand-soft: oklch(0.95 0.03 190);
+  --brand-muted: oklch(0.9 0.04 190);
+  --navy: #111e38;
+  --surface: #f8fafc;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ─── KProctor exam scope ─────────────────────────────────────────────── */
+/*
+ * Applied to the exam shell wrapper only (same approach as the LMS `.pg` scope).
+ * Uses the Kodeversity green from the LMS admin (active nav: oklch 0.45 0.16 160)
+ * and the LMS navy (#111e38) for headings, so shadcn primitives (bg-primary,
+ * ring, etc.) render in exam colours without touching the rest of the LMS.
+ */
+.kp {
+  --background: #f8fafc;
+  --foreground: #111e38;
+  --card-foreground: #111e38;
+  --primary: oklch(0.45 0.16 160);
+  --primary-foreground: oklch(1 0 0);
+  --accent: oklch(0.96 0.025 160);
+  --accent-foreground: #111e38;
+  --ring: oklch(0.45 0.16 160);
+  --border: oklch(0.925 0.008 250);
+
+  --brand: oklch(0.45 0.16 160);
+  --brand-foreground: oklch(1 0 0);
+  --brand-strong: oklch(0.35 0.15 160);
+  --brand-soft: oklch(0.96 0.035 160);
+  --brand-muted: oklch(0.9 0.05 160);
+  --navy: #111e38;
+  --surface: #f8fafc;
+}
+
+/* Curved rectangle border-radius (12px) on all buttons — LMS convention.
+   Kept in the base layer so utilities like rounded-full can still override it. */
+@layer base {
+  button,
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  [role="button"] {
+    border-radius: 12px;
+  }
+}
+
+/* ─── Themed Scrollbars (LMS) ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklab, var(--brand) 45%, transparent);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--brand) 45%, transparent) transparent;
+}
+
+/* ─── Exam helpers ─────────────────────────────────────────────────────── */
+/* Clearly visible keyboard focus for every interactive element in the exam UI.
+   Unlayered on purpose: it must win over component-level `focus-visible:outline-none`. */
+.kp
+  :where(
+    a,
+    button,
+    [role="button"],
+    [role="menuitem"],
+    [role="menuitemradio"],
+    [role="slider"],
+    [tabindex]
+  ):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Laptop screens (e.g. 1280×800) — tighten vertical rhythm so the screen fits without scrolling */
+@custom-variant short (@media (max-height: 860px));
+
+@utility mirror {
+  transform: scaleX(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

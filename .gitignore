@@ -1,0 +1,48 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+.output
+.vinxi
+.tanstack/**
+.nitro
+*.local
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment — never commit credentials
+.env
+.env.*
+!.env.example
+
+# Browser test artefacts
+e2e/.output
+
+# Local data (dev replica set, encrypted identity objects)
+.data/
+demo/
+
+# Live exam content (questions + answer key). The GitHub repo is public: never
+# commit a real exam before it has been held. Remove this line after the exam if wanted.
+scripts/exam-data/
